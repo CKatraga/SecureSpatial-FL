@@ -1,0 +1,14 @@
+digraph G {
+    node [shape=rect, style="filled,rounded", fillcolor=white, fontname="Arial"];
+    rankdir=TB;
+
+    Raw [label="Raw WiFi Signal\n(Multipath Propagation)", fillcolor=lightpink];
+    CSI [label="CSI Matrix Extraction\nH(f, t)", fillcolor=lightyellow];
+    Butter [label="Butterworth Low-pass Filter\n(Noise Suppression)"];
+    Phase [label="Linear Phase Transformation\n(CFO Sanitization)"];
+    Static [label="DC Component Removal\n(Static Reflection Filtering)"];
+    STFT [label="Short-Time Fourier Transform\n(STFT)"];
+    Output [label="2D Periodogram\n(Spatial-Temporal Feature Map)", fillcolor=lightgreen];
+
+    Raw -> CSI -> Butter -> Phase -> Static -> STFT -> Output;
+}
