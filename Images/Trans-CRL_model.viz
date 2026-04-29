@@ -1,0 +1,29 @@
+digraph G {
+    rankdir=LR;
+    node [shape=box, style="filled,rounded", fontname="Arial", fontsize=11];
+
+    Input [label="2D Periodogram\n(33x63)", fillcolor=lightgrey];
+    
+    subgraph cluster_cnn {
+        label="Spatial Module";
+        fillcolor=aliceblue; style=filled;
+        CNN [label="CNN Layers\n(Feature Extraction)"];
+    }
+
+    subgraph cluster_trans {
+        label="Attention Module";
+        fillcolor=lavender; style=filled;
+        Trans [label="Transformer Encoder\n(Self-Attention)"];
+    }
+
+    subgraph cluster_lstm {
+        label="Temporal Module";
+        fillcolor=honeydew; style=filled;
+        LSTM [label="LSTM Units\n(Gait Evolution)"];
+    }
+
+    FC [label="Classification\n(Softmax)", fillcolor=lightsalmon];
+    Out [label="Presence\nDetected", fillcolor=gold, shape=doubleoctagon];
+
+    Input -> CNN -> Trans -> LSTM -> FC -> Out;
+}
