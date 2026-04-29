@@ -12,3 +12,18 @@ digraph G {
 
     Raw -> CSI -> Butter -> Phase -> Static -> STFT -> Output;
 }
+
+digraph G {
+    rankdir=LR;
+    node [shape=rect, style="filled,rounded", fillcolor=white, fontname="Arial"];
+
+    Raw [label="Raw WiFi\nSignals", fillcolor=lightpink];
+    CSI [label="CSI Matrix\nH(f, t)", fillcolor=lightyellow];
+    Butter [label="Butterworth\nFilter"];
+    Phase [label="Phase\nSanitization"];
+    Static [label="DC\nRemoval"];
+    STFT [label="STFT\nProcessing"];
+    Output [label="2D Periodogram\n(Feature Map)", fillcolor=lightgreen];
+
+    Raw -> CSI -> Butter -> Phase -> Static -> STFT -> Output;
+}
