@@ -1,0 +1,41 @@
+digraph G {
+    rankdir=LR;
+    node [shape=box, style="filled,rounded", fontname="Arial", fontsize=12];
+    compound=true;
+
+    subgraph cluster_edge {
+        label = "Edge Sensing Layer (Private Homes)";
+        style=dashed;
+        node [fillcolor=lightblue];
+        ESP1 [label="ESP32 Node 1\n(CSI Sensing)"];
+        ESP2 [label="ESP32 Node 2\n(CSI Sensing)"];
+        ESPn [label="ESP32 Node n\n(CSI Sensing)"];
+    }
+
+    subgraph cluster_blockchain {
+        label = "Security Layer";
+        fillcolor=lightyellow;
+        style=filled;
+        Blockchain [label="Blockchain Ledger\n(B-RMA Protocol)", shape=hexagon];
+    }
+
+    subgraph cluster_cloud {
+        label = "Global Learning Layer";
+        node [fillcolor=lightgrey];
+        Server [label="Global Aggregator\n(FedProx Engine)"];
+    }
+
+    ESP1 -> Blockchain [label="Auth Request"];
+    ESP2 -> Blockchain;
+    ESPn -> Blockchain;
+    
+    Blockchain -> ESP1 [label="Session Token"];
+    
+    ESP1 -> Server [label="Local Weights (w1)"];
+    ESP2 -> Server [label="Local Weights (w2)"];
+    ESPn -> Server [label="Local Weights (wn)"];
+    
+    Server -> ESP1 [label="Global Model (w_t+1)"];
+    Server -> ESP2;
+    Server -> ESPn;
+}
