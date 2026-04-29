@@ -1,0 +1,17 @@
+digraph G {
+    rankdir=LR;
+    node [fontname="Arial", fontsize=10];
+    
+    // Node definitions with standard shapes
+    Node [label="IoT Node\n(ESP32)", shape=ellipse, style=filled, fillcolor=lightblue];
+    BC [label="Blockchain\nLedger", shape=cylinder, style=filled, fillcolor=lightyellow];
+    Server [label="FL Server\n(Aggregator)", shape=box, style=filled, fillcolor=lightgrey];
+
+    // Logical flow reordered for minimal crossing in LR layout
+    Node -> BC [label="1. Register (ID, PK)"];
+    BC -> Server [label="2. Sync ID"];
+    Server -> Node [label="3. Challenge (Nonce)"];
+    Node -> Server [label="4. Response (Signed)"];
+    Server -> BC [label="5. Verify Signature"];
+    BC -> Node [label="6. Auth Grant"];
+}
